@@ -47,7 +47,7 @@ const DocumentList = () => {
         return (
           <li key={doc.id}>
             <Link
-              href={`/dashboard/${doc.id}`}
+              href={`/dashboard/${doc?.slug}`}
               className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition group ${
                 active
                   ? "bg-ocean-500/12 text-ocean-900 font-medium"

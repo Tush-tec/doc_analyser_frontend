@@ -1,18 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AppLayout from "../../components/layout/AppLayout";
 import { useAuth } from "@/utils/Context/AuthContext";
+import { requestHandler } from "@/utils/app";
+import { getParticularDocument } from "@/api/api";
 
 export default function DocumentChat() {
   const router = useRouter();
   const { id } = router.query;
-  const { isAuthenticated, isLoading } = useAuth();
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) router.replace("/login");
-  }, [isAuthenticated, isLoading, router]);
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
 
-  if (isLoading || !id) return null;
+  const fetchData = async () => {
+    await requestHandler(
+      async () => getParticularDocument(id),
+      setIsLoading,
+      (res) => {
+        setData(res);
+      },
+      (err) => {
+        setError(err);
+      },
+    );
+  };
 
   return (
     <div className="h-full flex flex-col">
