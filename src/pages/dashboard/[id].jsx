@@ -1,11 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AppLayout from "../../components/layout/AppLayout";
 import { useAuth } from "@/utils/Context/AuthContext";
+import { requestHandler } from "@/utils/app";
+import { getParticularDocument } from "@/api/api";
 
 export default function DocumentChat() {
   const router = useRouter();
   const { id } = router.query;
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
+
+  const fetchData = async () => {
+    await requestHandler(
+      async () => getParticularDocument(id),
+      setIsLoading,
+      (res) => {
+        setData(res);
+      },
+      (err) => {
+        setError(err);
+      },
+    );
+  };
 
   return (
     <div className="h-full flex flex-col">

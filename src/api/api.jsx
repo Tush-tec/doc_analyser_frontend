@@ -40,4 +40,15 @@ const getDocuments = async () => {
   return apiClient.get("/documents");
 };
 
-export { userRegister, UserLogin, googleLogin, uploadDocuments, getDocuments };
+const getParticularDocument = async (slug) => {
+  return apiClient.get(`documents/${slug}`);
+};
+
+export {
+  userRegister,
+  UserLogin,
+  googleLogin,
+  uploadDocuments,
+  getDocuments,
+  getParticularDocument,
+};
