@@ -6,13 +6,6 @@ import { useAuth } from "@/utils/Context/AuthContext";
 export default function DocumentChat() {
   const router = useRouter();
   const { id } = router.query;
-  const { isAuthenticated, isLoading } = useAuth();
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) router.replace("/login");
-  }, [isAuthenticated, isLoading, router]);
-
-  if (isLoading || !id) return null;
 
   return (
     <div className="h-full flex flex-col">
