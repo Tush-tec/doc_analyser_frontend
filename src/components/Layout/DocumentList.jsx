@@ -1,5 +1,5 @@
-import { getDocuments } from "@/api/api";
-import { requestHandler } from "@/utils/app";
+import { fetchDocumentAccordingtoUserId, getDocuments } from "@/api/api";
+import { LocalStorage, requestHandler } from "@/utils/app";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ const DocumentList = () => {
 
   const fetchData = async () => {
     await requestHandler(
-      async () => getDocuments(),
+      async () => fetchDocumentAccordingtoUserId(),
       setIsLoading,
       (res) => {
         setData(res.data);

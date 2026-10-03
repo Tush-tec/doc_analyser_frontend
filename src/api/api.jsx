@@ -44,6 +44,10 @@ const getParticularDocument = async (slug) => {
   return apiClient.get(`documents/${slug}`);
 };
 
+const fetchDocumentAccordingtoUserId = async (id) => {
+  return apiClient.get(`documents/user-docs`);
+};
+
 export {
   userRegister,
   UserLogin,
@@ -51,4 +55,5 @@ export {
   uploadDocuments,
   getDocuments,
   getParticularDocument,
+  fetchDocumentAccordingtoUserId,
 };
